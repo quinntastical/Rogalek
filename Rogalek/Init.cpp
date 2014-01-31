@@ -58,4 +58,10 @@ class Init{
 		al_register_event_source(ev, al_get_display_event_source(display));
 		al_register_event_source(ev, al_get_keyboard_event_source());
 	}
+	void closeAllegro(ALLEGRO_EVENT_QUEUE *ev, ALLEGRO_DISPLAY *display)
+	{
+		al_destroy_display(display);
+		al_destroy_event_queue(ev);
+	}
+	
 };

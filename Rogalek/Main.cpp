@@ -13,6 +13,7 @@ int main()
 	*/
 	Init initializer;
 	ALLEGRO_DISPLAY *display = NULL;
+	ALLEGRO_EVENT_QUEUE *event_queue = NULL;
 
 	if(!initializer.initAllegro(display, resolutionWidth, resolutionHeight))
 	{
@@ -22,9 +23,9 @@ int main()
 	{
 		return 1; // coœ posz³o nie tak, wychodzimy...
 	}
-	initializer.registerEvents();
+	initializer.registerEvents(event_queue, display);
 	//gameLoop(); // Nale¿y do Game.h
-	initializer.closeAllegro();
+	initializer.closeAllegro(event_queue, display);
 
 	return 0;
 }
