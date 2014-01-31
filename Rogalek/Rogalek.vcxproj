@@ -79,7 +79,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>C:\Allegro\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>allegro-5.0.10-static-mt.lib;allegro_font-5.0.10-static-mt.lib;allegro_image-5.0.10-static-mt.lib;allegro_primitives-5.0.10-static-mt.lib;allegro_ttf-5.0.10-static-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>allegro-5.0.10-static-mt.lib;allegro_font-5.0.10-static-mt.lib;allegro_image-5.0.10-static-mt.lib;allegro_primitives-5.0.10-static-mt.lib;allegro_ttf-5.0.10-static-mt.lib;freetype-2.4.8-static-mt.lib;winmm.lib;opengl32.lib;gdiplus.lib;psapi.lib;shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
