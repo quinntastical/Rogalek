@@ -6,58 +6,69 @@
 #include <allegro5\allegro_ttf.h>
 #include "Init.h"
 
-int Init::initAllegro(ALLEGRO_DISPLAY *display, const int width, const int height)
+bool Init::initAllegro(ALLEGRO_DISPLAY* &display, ALLEGRO_EVENT_QUEUE* &event_queue, const int width, const int height)
 {
 	if(!al_init())
 	{
 		std::cout << "FATAL: Allegro initialization failed!" << std::endl;
-		return 1;
+		return false;
 	}
 	//Spróbuj stworzyæ ALLEGRO_DISPLAY
 	display = al_create_display(width,height);
 	if(!display)
 	{
 		std::cout << "FATAL: Could not create a display!" << std::endl;
-		return 1;
+		return false;
 	}
-if(!al_install_keyboard())
+
+	event_queue = al_create_event_queue();
+	if(!event_queue)
+	{
+		std::cout << "FATAL: Could not initialize the event queue!"<< std::endl;
+		return false;
+	}
+
+	if(!al_install_keyboard())
 	{
 		std::cout << "FATAL: Could not install the keyboard!" << std::endl;
-		return 1;
+		return false;
 	}
+
+	al_clear_to_color(al_map_rgb(0,0,0));
+	al_flip_display();
 	//Wszystko OK!
-	return 0;
+	return true;
 }
-int Init::initAddons()
+bool Init::initAddons()
 {
 	if(!al_init_image_addon())
 	{
 		std::cout << "FATAL: Could not load the image addon!"<< std::endl;
-		return 1;
+		return false;
 	}
 	if(!al_init_primitives_addon())
 	{
 		std::cout << "FATAL: Could not load the primitives addon!"<< std::endl;
-		return 1;
+		return false;
 	}
 	
 	al_init_font_addon(); //Nie zwraca ¿adnej wartoœci - nie sprawdzamy go
 	if(!al_init_ttf_addon())
 	{
 		std::cout << "FATAL: Could not load the image addon!"<< std::endl;
-		return 1;
+		return false;
 	}
 	//Wszystko OK!
-	return 0;
+	return true;
 }
-void Init::registerEvents(ALLEGRO_EVENT_QUEUE *ev, ALLEGRO_DISPLAY *display)
+void Init::registerEvents(ALLEGRO_DISPLAY* &display, ALLEGRO_EVENT_QUEUE* &event_queue)
 {
-	al_register_event_source(ev, al_get_display_event_source(display));
-	al_register_event_source(ev, al_get_keyboard_event_source());
+	al_register_event_source(event_queue, al_get_display_event_source(display));
+	al_register_event_source(event_queue, al_get_keyboard_event_source());
 }
-void Init::closeAllegro(ALLEGRO_EVENT_QUEUE *ev, ALLEGRO_DISPLAY *display)
+void Init::closeAllegro(ALLEGRO_DISPLAY* &display, ALLEGRO_EVENT_QUEUE* &event_queue)
 {
 	al_destroy_display(display);
-	al_destroy_event_queue(ev);
+	al_destroy_event_queue(event_queue);
 }
 	

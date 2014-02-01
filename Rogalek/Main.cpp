@@ -1,6 +1,7 @@
 #include <allegro5\allegro.h>
 #include "Init.h"
 #include "Consts.h"
+#include "Game.h"
 int main()
 {
 	/* Procedura startowa:
@@ -11,11 +12,11 @@ int main()
 	- Zamkniêcie biblioteki Allegro 5
 	- Koniec programu
 	*/
-	Init initializer;
 	ALLEGRO_DISPLAY *display = NULL;
 	ALLEGRO_EVENT_QUEUE *event_queue = NULL;
+	Init initializer;
 
-	if(!initializer.initAllegro(display, resolutionWidth, resolutionHeight))
+	if(!initializer.initAllegro(display, event_queue, resolutionWidth, resolutionHeight))
 	{
 		return 1; // coœ posz³o nie tak, wychodzimy...
 	}
@@ -23,9 +24,9 @@ int main()
 	{
 		return 1; // coœ posz³o nie tak, wychodzimy...
 	}
-	initializer.registerEvents(event_queue, display);
-	//gameLoop(); // Nale¿y do Game.h
-	initializer.closeAllegro(event_queue, display);
+	initializer.registerEvents(display, event_queue);
+	gameLoop();
+	initializer.closeAllegro(display, event_queue);
 
 	return 0;
 }
